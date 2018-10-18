@@ -27,7 +27,7 @@ def clicked():
             #De vertrek weten
             stop = 0
 
-            for vertrek in vertrekXML['ActueleVertrekTijden']['VertrekkendeTrein']:
+            for vertrek in vertrekXML['ActueleVertrekTijden']['VertrekkendeTrein'][:5]:
                 eindbestemming = vertrek['EindBestemming']
 
                 vertrektijd = vertrek['VertrekTijd']  # 2016-09-27T18:36:00+0200
@@ -35,11 +35,7 @@ def clicked():
 
                 #Laat de vertrektijden en eindbestemming zien
 
-
-                if stop == 5:
-                    break
                 stationText = Label(root, text = 'Om '+vertrektijd+' vertrekt een trein naar '+ eindbestemming, height=2, background='#ffd72a', font='comicsansms')
-                stop += 1
                 stationText.pack()
 
 label = Label(master=root, text='Station:', height = 10, background='#ffd72a', width=100, font='comicsansms')
