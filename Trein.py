@@ -7,6 +7,10 @@ from tkinter import *
 
 root = Tk()
 
+def scroller():
+    scrollbar = Scrollbar(root)
+    scrollbar.pack(side=RIGHT, fill=Y)
+
 def clicked():
         stationIn = entry.get() #Verkrijgt het getypte station
         tekst = "Station: {}"
@@ -21,6 +25,8 @@ def clicked():
             vertrekXML = xmltodict.parse(response.text)
 
             #De vertrek weten
+            stop = 0
+
             for vertrek in vertrekXML['ActueleVertrekTijden']['VertrekkendeTrein']:
                 eindbestemming = vertrek['EindBestemming']
 
@@ -28,20 +34,22 @@ def clicked():
                 vertrektijd = vertrektijd[11:16]  # 18:36
 
                 #Laat de vertrektijden en eindbestemming zien
-                label1 = Label(master=root, text='Om ' + vertrektijd + ' vertrekt een trein naar ' + eindbestemming, height=2, background='yellow')
-
-                label1.pack()
-                root.mainloop()
 
 
-label = Label(master=root, text='Type', height = 2, background='yellow')
+                if stop == 5:
+                    break
+                stationText = Label(root, text = 'Om '+vertrektijd+' vertrekt een trein naar '+ eindbestemming, height=2, background='#ffd72a', font='comicsansms')
+                stop += 1
+                stationText.pack()
+
+label = Label(master=root, text='Station:', height = 10, background='#ffd72a', width=100, font='comicsansms')
 label.pack()
 
-button = Button(master=root, text='Druk hier', command=clicked)
+button = Button(master=root, text='Plannen', command=clicked, background='#02339a', foreground='white', font='comicsansms',)
 button.pack(pady=10)
 
 entry = Entry(master=root)
 entry.pack(padx=10, pady=10)
 
+root.configure(background='#ffd72a')
 root.mainloop()
-
