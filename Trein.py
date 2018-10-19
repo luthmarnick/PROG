@@ -5,6 +5,10 @@ from tkinter.messagebox import showinfo
 
 
 root = Tk()
+root.maxsize(700, 675)  #zet de maximale grote van de window
+root.minsize(700, 675)  #zet de minimale grote van de window
+img = Image('photo', file='logoNS.png')
+root.call('wm', 'iconphoto', root._w,img)   #zet het plaatje als icoon neer
 
 #De def die de clicked() verwijderd en terug zet naar begin()
 def destroyer(lijst,refresher):
@@ -40,12 +44,14 @@ def clicked(label,entry,button):
             #De vertrek tijden en bestemmingen vinden in de XML File
             for vertrek in vertrekXML['ActueleVertrekTijden']['VertrekkendeTrein'][:10]: #Dit zal zich 10 keer repeaten
                 eindbestemming = vertrek['EindBestemming']
+                spoor = vertrek['VertrekSpoor']['#text'] #geeft het spoor waarop de trein rijd weer
 
                 vertrektijd = vertrek['VertrekTijd']  # 2016-09-27T18:36:00+0200
-                vertrektijd = vertrektijd[11:16]  # 18:36
+                vertrektijd = vertrektijd[11:16]  # 11:16 geeft het tijd format aan
+                #print(vertrektijd['VertrekTijd'])
 
                 #Laat de vertrektijden en eindbestemming zien
-                stationText = Label(master=root,  height=2,text = 'Om '+vertrektijd+' vertrekt een trein naar '+ eindbestemming,
+                stationText = Label(master=root,  height=2,text = 'Om '+vertrektijd+' vertrekt een trein naar '+ eindbestemming +' op spoor ' + spoor,
                                     background='#ffd72a', font='comicsansms')
                 #Doet de stationText in de lijst en we gebruiken de lijst om daarmee de teksten te verwijderen
                 lijst.append(stationText)
