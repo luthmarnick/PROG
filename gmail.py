@@ -8,6 +8,7 @@ from email import encoders
 
 #Def functie is niet nodig, maar was handig om 'Uit te zetten' met hashtag
 #Je kan input weg doen en daar je standaard Mail, WW of bericht inschrijven ipv te typen. 
+#Als je dit wilt gebruiken, moet je bij je mail dit https://myaccount.google.com/lesssecureapps aan zetten
 def mail():
     mail = input('Je mail: ')
     ww = input('WW: ')#PAS OP! Het intypen van je WW wordt niet anders weergeven, dus als iemand meekijkt kan die het zien!
