@@ -9,7 +9,7 @@ from email import encoders
 #Def functie is niet nodig, maar was handig om 'Uit te zetten' met hashtag
 def mail():
     mail = input('Je mail: ')
-    ww = input('WW: ')
+    ww = input('WW: ')#PAS OP! Het intypen van je WW wordt niet anders weergeven, dus als iemand meekijkt kan die het zien!
 
     msg = MIMEMultipart()
 
@@ -34,7 +34,7 @@ def mail():
 
     server_ssl = smtplib.SMTP_SSL('smtp.gmail.com', 465)
     server_ssl.ehlo()
-    server_ssl.login(mail, ww)#PAS OP! Je kan het wachtwoord nog zien!
+    server_ssl.login(mail, ww)
     text = msg.as_string()
     server_ssl.sendmail(mail, mail, text)
     server_ssl.quit()
