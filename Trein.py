@@ -35,7 +35,7 @@ def clicked(label,entry,button,stoppen):
             myXMLFile.write(response.text)
             vertrekXML = xmltodict.parse(response.text)
 
-            #Verwijderd de button,label en entry van begin()
+            #Verwijderd de buttons,label en entry van begin()
             button.destroy()
             label.destroy()
             entry.destroy()
@@ -44,14 +44,14 @@ def clicked(label,entry,button,stoppen):
             #De vertrek tijden en bestemmingen vinden in de XML File
             for vertrek in vertrekXML['ActueleVertrekTijden']['VertrekkendeTrein'][:10]: #Dit zal zich 10 keer repeaten
                 eindbestemming = vertrek['EindBestemming']
-                spoor = vertrek['VertrekSpoor']['#text'] #geeft het spoor waarop de trein rijd weer
+                spoor = vertrek['VertrekSpoor']['#text'] #geeft het spoor waarop de trein rijd
+                soort = vertrek['TreinSoort'] #De treinsoort
 
                 vertrektijd = vertrek['VertrekTijd']  # 2016-09-27T18:36:00+0200
                 vertrektijd = vertrektijd[11:16]  # 11:16 geeft het tijd format aan
-                #print(vertrektijd['VertrekTijd'])
 
                 #Laat de vertrektijden en eindbestemming zien
-                stationText = Label(master=root,  height=2,text = 'Om '+vertrektijd+' vertrekt een trein naar '+ eindbestemming +' op spoor ' + spoor,
+                stationText = Label(master=root,  height=2,text = 'Om '+vertrektijd+' vertrekt een ' + soort + ' naar '+ eindbestemming +' op spoor ' + spoor,
                                     background='#ffd72a', font='Comic')
                 #Doet de stationText in de lijst en we gebruiken de lijst om daarmee de teksten te verwijderen
                 lijst.append(stationText)
@@ -81,12 +81,12 @@ def begin():
 
     #Hierin kan je de gewenste station schrijven
     entry = Entry(master=root)
-    entry.pack(padx=10, pady=10)
+    entry.pack(padx=10, pady=10, ipadx=100)
 
     #De button zorgt ervoor dat het clicked def zal starten
     button = Button(master=root, text='Plannen', command=lambda: clicked(label,entry,button,stoppen), background='#02339a',
                     foreground='white', font='Comic', )
-    button.place(x=225,y=250,)
+    button.place(x=225,y=250)
 
     stoppen = Button(master=root, text='Stoppen', command=root.destroy, background='#02339a', #Stopt het programma
                     foreground='white', font='Comic', )
@@ -98,3 +98,7 @@ def begin():
     root.mainloop()
 
 begin()#Begint het programma
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
